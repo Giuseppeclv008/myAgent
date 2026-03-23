@@ -39,10 +39,11 @@ if __name__ == "__main__":
         
         # test4 file saving
         result = run_local_agent(test_query4)
-        print(f"Agent Locale: {result}")
         print("-" * 20)
         print(f"User: {test_query4}")
         print("-" * 20)
+        print(f"Agent Locale: {result}")
+    
         
     except Exception as e:
         print(f"Errore: Assicurati che Ollama sia avviato! \n{e}")
