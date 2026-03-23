@@ -22,7 +22,7 @@ langchain-community
 The code uses the 'llama3' template. Make sure you have it configured:
 
 1. Download Ollama from https://ollama.com
-2. In the terminal, run: ```ollama pull llama3.1```
+2. In the terminal, run: ```ollama pull qwen2.5:0.5b```
 3. Make sure the Ollama app is launched.
 
 --- 
