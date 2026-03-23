@@ -5,11 +5,16 @@ from langchain_core.messages import HumanMessage, SystemMessage
 model = ChatOllama(
     model="llama3",
     temperature=0.7,
+    tools=["convert_temperature", "save_to_file", "read_from_file"]  # Specifica gli strumenti che l'agente può utilizzare
 )
 
 def run_local_agent(query):
     messages = [
-        SystemMessage(content="You are a helpful local assistant that can convert temperatures between Celsius and Fahrenheit. Always use the convert_temperature tool when users ask for temperature conversions."),
+        SystemMessage(content="""
+                                You are a helpful local assistant that can convert temperatures between Celsius and Fahrenheit. 
+                                Always use the convert_temperature tool when users ask for temperature conversions.
+                                You can also save and read files using the save_to_file and read_from_file tools.
+                                """),
         HumanMessage(content=query)
     ]
     # Il comando invoke rimane identico! 
