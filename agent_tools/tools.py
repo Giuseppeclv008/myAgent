@@ -2,7 +2,7 @@ import os
 from langchain.tools import tool
 from langchain_core.messages import HumanMessage
 
-@tool("save_to_file", return_direct=True)
+@tool
 def save_to_file(content: str, filename: str) -> str:
     """Salva il contenuto in un file specificato."""
     try:
@@ -12,7 +12,7 @@ def save_to_file(content: str, filename: str) -> str:
     except Exception as e:
         return f"Errore durante il salvataggio del file: {e}"
     
-@tool("read_from_file", return_direct=True)
+@tool
 def read_from_file(filename: str) -> str:
     """Legge il contenuto da un file specificato."""
     try:
