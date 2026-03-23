@@ -17,11 +17,11 @@ if __name__ == "__main__":
     
     try:
         # # test1 simple conversion
-        # result = run_local_agent(test_query1)
-        # print(f"Agent Locale: {result}")
-        # print("-" * 20)
-        # print(f"User: {test_query1}")
-        # print("-" * 20)
+        print(f"User: {test_query1}")
+        print("-" * 20)
+        result = run_local_agent(test_query1)
+        print(f"Agent Locale: {result}")
+        print("-" * 20)
     
         # # test2 Reverse conversion
         # result = run_local_agent(test_query2)

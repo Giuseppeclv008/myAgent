@@ -5,26 +5,25 @@ from tools import save_to_file, read_from_file, convert_temperature
 # 1. Configura il modello locale
 # Assicurati che il nome 'llama3' corrisponda a quello scaricato con Ollama
 llm = ChatOllama(
-    model="llama3.1",
-    temperature=0.3,
+    model="qwen2.5:0.5b",
+    temperature=0.7,
 )
 
 tools = [save_to_file, read_from_file, convert_temperature]
 model = llm.bind_tools(tools)
 
-
 def run_local_agent(query):
+    # if we don't specify to the agent that he can use a tool the agent will not be able to use it, so we need to specify it in the system message
     messages = [
         SystemMessage(content="""
                                 You are a helpful local assistant.
-                                You can save and read files using the save_to_file and read_from_file tools.
+                                You can convert temperatures and also save and read files.
+                                Use the 'convert_temperature' tool for temperature conversions. 
+                                Use the 'save_to_file' and 'read_from_file' tools for file operations.
                                 """),
         HumanMessage(content=query)
     ]
 
-    # agentic loop 
-    # the agentic loop allows the model to call tools iteratively 
-    # until it can provide a final answer without needing to call more tools.
     while True:
         response = model.invoke(messages)
 
@@ -40,6 +39,9 @@ def run_local_agent(query):
             elif tool_call["name"] == "read_from_file":
                 args = tool_call["args"]
                 tool_output = read_from_file.invoke(args)
+            elif tool_call["name"] == "convert_temperature":
+                args = tool_call["args"]
+                tool_output = convert_temperature.invoke(args)
             else:
                 tool_output = f"Error: Tool '{tool_call['name']}' not found."
             
