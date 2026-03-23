@@ -1,12 +1,6 @@
-from langchain_ollama import ChatOllama
+from model import model
 from langchain_core.messages import HumanMessage, SystemMessage
 
-# 1. Configura il modello locale
-# Assicurati che il nome 'llama3' corrisponda a quello scaricato con Ollama
-model = ChatOllama(
-    model="llama3",
-    temperature=0.7,
-)
 
 # 2. Funzione dell'agente
 def run_local_agent(query):
