@@ -6,7 +6,7 @@ from tools import save_to_file, read_from_file, convert_temperature
 # Assicurati che il nome 'llama3' corrisponda a quello scaricato con Ollama
 llm = ChatOllama(
     model="llama3.1",
-    temperature=0.3,
+    temperature=0.1,
 )
 
 tools = [save_to_file, read_from_file, convert_temperature]
@@ -25,9 +25,17 @@ def run_local_agent(query):
     # agentic loop 
     # the agentic loop allows the model to call tools iteratively 
     # until it can provide a final answer without needing to call more tools.
+    # WARNING : USE IT ONLY WITH SMALL MODEL OR WITH A LOW TEMPERATURE, OTHERWISE THE MODEL MIGHT GET STUCK IN AN INFINITE LOOP OF TOOL CALLS.
+    # OR USE IT WITH A MAX NUMBER OF ITERATIONS TO AVOID INFINITE LOOPS.
+    # OR IF THERE IS ENOUGH RAM TO HANDLE THE MESSAGES GROWING IN SIZE.
+    counter = 0
     while True:
+        counter += 1
+        
         response = model.invoke(messages)
-
+        if counter > 1000: # safety check to prevent infinite loops
+            return response.content
+        
         if not response.tool_calls:
             return response.content
         
