@@ -12,6 +12,7 @@ llm = ChatOllama(
 tools = [save_to_file, read_from_file, convert_temperature]
 model = llm.bind_tools(tools)
 
+
 def run_local_agent(query):
     messages = [
         SystemMessage(content="""
@@ -21,6 +22,9 @@ def run_local_agent(query):
         HumanMessage(content=query)
     ]
 
+    # agentic loop 
+    # the agentic loop allows the model to call tools iteratively 
+    # until it can provide a final answer without needing to call more tools.
     while True:
         response = model.invoke(messages)
 
